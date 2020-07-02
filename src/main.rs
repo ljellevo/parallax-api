@@ -12,13 +12,13 @@ use rocket_contrib::json::Json;
 
 #[get("/hello")]
 fn hello() -> String {
-    format!("Hello")
+  format!("Hello")
 }
 
 #[derive(Serialize)]
 struct Task { 
   data: String
- }
+}
 
 #[get("/api/upcoming_features")]
 fn upcoming_features() -> Json<Task> {
