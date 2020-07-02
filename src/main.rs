@@ -18,7 +18,7 @@ fn hello() -> String {
 
 #[derive(Serialize)]
 struct Task { 
-  body: String
+  data: String
  }
 
 #[get("/api/upcoming_features")]
@@ -26,9 +26,7 @@ fn upcoming_features() -> Json<Task> {
   let mut file = File::open("markdown/upcoming_features.md").expect("Unable to open the file");
   let mut contents = String::new();
   file.read_to_string(&mut contents).expect("Unable to read the file");
-  //content::Json("{ 'data': {} }", contents)
-  Json(Task { body: contents})
-  //format!("{}", contents)
+  Json(Task { data: contents})
 }
 
 #[get("/api/release_notes")]
