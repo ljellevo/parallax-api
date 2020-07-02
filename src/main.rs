@@ -30,51 +30,51 @@ fn upcoming_features() -> Json<Task> {
 }
 
 #[get("/api/release_notes")]
-fn release_notes() -> String {
+fn release_notes() -> Json<Task> {
   let mut file = File::open("markdown/release_notes.md").expect("Unable to open the file");
   let mut contents = String::new();
   file.read_to_string(&mut contents).expect("Unable to read the file");
-  format!("{}", contents)
+  Json(Task { data: contents})
 }
 
 #[get("/api/how_it_works")]
-fn how_it_works() -> String {
+fn how_it_works() -> Json<Task> {
   let mut file = File::open("markdown/how_it_works.md").expect("Unable to open the file");
   let mut contents = String::new();
   file.read_to_string(&mut contents).expect("Unable to read the file");
-  format!("{}", contents)
+  Json(Task { data: contents})
 }
 
 #[get("/api/about_us")]
-fn about_us() -> String {
+fn about_us() -> Json<Task> {
   let mut file = File::open("markdown/about_us.md").expect("Unable to open the file");
   let mut contents = String::new();
   file.read_to_string(&mut contents).expect("Unable to read the file");
-  format!("{}", contents)
+  Json(Task { data: contents})
 }
 
 #[get("/api/privacy")]
-fn privacy() -> String {
+fn privacy() -> Json<Task> {
   let mut file = File::open("markdown/privacy.md").expect("Unable to open the file");
   let mut contents = String::new();
   file.read_to_string(&mut contents).expect("Unable to read the file");
-  format!("{}", contents)
+  Json(Task { data: contents})
 }
 
 #[get("/api/terms_of_agreement")]
-fn terms_of_agreement() -> String {
+fn terms_of_agreement() -> Json<Task> {
   let mut file = File::open("markdown/terms_of_agreement.md").expect("Unable to open the file");
   let mut contents = String::new();
   file.read_to_string(&mut contents).expect("Unable to read the file");
-  format!("{}", contents)
+  Json(Task { data: contents})
 }
 
 #[get("/api/code_of_conduct")]
-fn code_of_conduct() -> String {
+fn code_of_conduct() -> Json<Task> {
   let mut file = File::open("markdown/code_of_conduct.md").expect("Unable to open the file");
   let mut contents = String::new();
   file.read_to_string(&mut contents).expect("Unable to read the file");
-  format!("{}", contents)
+  Json(Task { data: contents})
 }
 
 fn main() {
