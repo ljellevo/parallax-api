@@ -6,7 +6,6 @@
 
 use std::io::prelude::*;
 use std::fs::File;
-use rocket::response::content;
 use serde::Serialize;
 use rocket_contrib::json::Json;
 
