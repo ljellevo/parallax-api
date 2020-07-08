@@ -9,6 +9,7 @@ use std::fs::File;
 use serde::Serialize;
 use rocket_contrib::json::Json;
 use serde::Deserialize;
+use rocket::response::content;
 
 #[get("/hello")]
 fn hello() -> String {
@@ -82,9 +83,20 @@ struct Payload {
   //image: String
 }
 
+#[derive(Serialize)]
+struct Output {
+  effect: String,
+}
+
 #[post("/api/image", format = "json", data = "<payload>")]
-fn upload_image(payload: Json<Payload>) -> String {
-  format!("print test {:?}", payload)
+fn upload_image(payload: Json<Payload>) -> Json<Output> {
+  //format!("print test {:?}", payload)
+  //content::Json("{ 'hi': 'world' }")
+  Json(
+    Output {
+        effect: payload.effect.to_string()
+    },
+  )
 }
 
 fn main() {

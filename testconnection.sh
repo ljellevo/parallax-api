@@ -1,0 +1,1 @@
+curl --header "Content-Type: application/json" --request POST --data '{"effect":"xyz"}' https://parallax-api-dev.herokuapp.com/api/image
