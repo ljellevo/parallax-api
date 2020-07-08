@@ -8,7 +8,7 @@ use std::io::prelude::*;
 use std::fs::File;
 use serde::Serialize;
 use rocket_contrib::json::Json;
-
+use serde::Deserialize;
 
 #[get("/hello")]
 fn hello() -> String {
@@ -74,6 +74,17 @@ fn code_of_conduct() -> Json<Task> {
   let mut contents = String::new();
   file.read_to_string(&mut contents).expect("Unable to read the file");
   Json(Task { data: contents})
+}
+
+#[derive(Debug, PartialEq, Eq, Deserialize)]
+struct Payload {
+    id: i64,
+
+}
+
+#[post("/api/image", format = "json", data = "<payload>")]
+fn upload_image(payload: Json<Payload>) -> String {
+  format!("print test {:?}", payload)
 }
 
 fn main() {
