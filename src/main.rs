@@ -78,8 +78,8 @@ fn code_of_conduct() -> Json<Task> {
 
 #[derive(Debug, PartialEq, Eq, Deserialize)]
 struct Payload {
-    id: i64,
-
+  effect: String,
+  image: String
 }
 
 #[post("/api/image", format = "json", data = "<payload>")]
