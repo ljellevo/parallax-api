@@ -96,7 +96,8 @@ fn main() {
       about_us,
       privacy,
       terms_of_agreement,
-      code_of_conduct
+      code_of_conduct,
+      upload_image
     ]
   ).launch();
 }
