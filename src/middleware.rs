@@ -118,7 +118,7 @@ impl FromDataSimple for NewPayload {
       
       1 => {
         image_bytes = image_part[0].raw.clone();
-        //print!("{:?}", image_bytes);
+        print!("{:?}", image_bytes);
       }
       _ => {
         return Failure((
