@@ -97,7 +97,8 @@ impl FromDataSimple for NewPayload {
             
             print!("Middleware triggered");
             print!("json response: {:?}", json_string);
-            parsed_data;
+            
+            parsed_data
           },
           Err(e) => {
             return Failure((
