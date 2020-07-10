@@ -3,6 +3,5 @@
   "[git-commit]": {
   
   },
-  "git.autofetch": true,
-  "git.autofetchPeriod": 60
+  "git.postCommitCommand": "sync"
 }
