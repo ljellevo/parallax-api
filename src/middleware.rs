@@ -94,8 +94,10 @@ impl FromDataSimple for NewPayload {
         let json_string = &post_json_part[0].text.replace('\'', "\"");
         post_obj = match serde_json::from_str::<Payload>(json_string) {
           Ok(parsed_data) => {
-            print!("{:?}", json_string);
-            parsed_data
+            
+            print!("Middleware triggered");
+            print!("json response: {:?}", json_string);
+            parsed_data;
           },
           Err(e) => {
             return Failure((
