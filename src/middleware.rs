@@ -92,12 +92,10 @@ impl FromDataSimple for NewPayload {
     match post_json_part.len() {
       1 => {
         let json_string = &post_json_part[0].text.replace('\'', "\"");
+        print!("Middleware triggered");
+        print!("json response: {:?}", json_string);
         post_obj = match serde_json::from_str::<Payload>(json_string) {
           Ok(parsed_data) => {
-            
-            print!("Middleware triggered");
-            print!("json response: {:?}", json_string);
-            
             parsed_data
           },
           Err(e) => {
