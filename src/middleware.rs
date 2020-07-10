@@ -93,7 +93,10 @@ impl FromDataSimple for NewPayload {
       1 => {
         let json_string = &post_json_part[0].text.replace('\'', "\"");
         post_obj = match serde_json::from_str::<Payload>(json_string) {
-          Ok(insert) => insert,
+          Ok(parsed_data) => {
+            print!("{:?}", json_string);
+            parsed_data
+          },
           Err(e) => {
             return Failure((
               Status::BadRequest,
@@ -114,7 +117,7 @@ impl FromDataSimple for NewPayload {
       
       1 => {
         image_bytes = image_part[0].raw.clone();
-        print!("{:?}", image_bytes);
+        //print!("{:?}", image_bytes);
       }
       _ => {
         return Failure((
