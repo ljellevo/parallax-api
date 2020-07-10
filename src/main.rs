@@ -2,9 +2,6 @@
 
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use] extern crate serde;
-
-
 #[macro_use] 
 extern crate rocket;
 extern crate rocket_multipart_form_data;
@@ -22,13 +19,7 @@ use std::io::prelude::*;
 use std::fs::File;
 use serde::Serialize;
 use rocket_contrib::json::Json;
-use serde::Deserialize;
 
-
-use rocket::Data;
-use rocket::http::ContentType;
-
-use rocket_multipart_form_data::{mime, MultipartFormDataOptions, MultipartFormData, MultipartFormDataField, Repetition};
 
 
 #[get("/hello")]
