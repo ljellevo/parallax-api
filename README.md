@@ -1,2 +1,4 @@
 ## Illusio API
-Yup
+Yup  
+
+ROCKET_ENV=prod

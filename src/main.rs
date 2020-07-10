@@ -102,7 +102,7 @@ fn upload_image(multipart: Result<NewPayload>) -> String {
   
   match multipart {
     Ok(m) => {
-      
+      print!("Test");
       format!("Hello, {}", m.payload.effect)
     },
     Err(e) => format!("Error: {}", e.reason),
