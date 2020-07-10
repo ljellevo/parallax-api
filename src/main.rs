@@ -98,8 +98,13 @@ struct Output {
 //https://docs.rs/rocket-multipart-form-data/0.9.3/rocket_multipart_form_data/
 #[post("/api/image", data = "<multipart>")]
 fn upload_image(multipart: Result<NewPayload>) -> String {
+  let test: Vec<u8>;
   match multipart {
-    Ok(m) => format!("Hello, {}", m.payload.effect),
+    
+    Ok(m) => {
+      test = m.image;
+      format!("Hello, {}", m.payload.effect)
+    },
     Err(e) => format!("Error: {}", e.reason),
   }
 }
