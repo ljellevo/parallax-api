@@ -1,8 +1,11 @@
+use std::fs::{self, File};
+use rocket_multipart_form_data::FileField;
 use rocket::data::{FromDataSimple, Outcome};
 use rocket::http::Status;
 use rocket::{Data, Outcome::*, Request};
 use rocket_multipart_form_data::{mime, MultipartFormDataOptions, MultipartFormData, MultipartFormDataField, RawField};
 use serde::{Deserialize, Serialize};
+use std::io::Read;
 
 #[derive(Debug, Clone)]
 pub struct MultipartError {
@@ -39,9 +42,10 @@ impl FromDataSimple for NewPayload {
 	type Error = MultipartError;
 
 	fn from_data(request: &Request, data: Data) -> Outcome<Self, Self::Error> {
-    let image_bytes;
+    //let image_bytes;
     let post_obj;
     let mut options = MultipartFormDataOptions::new();
+    let buffer;
 
     options.allowed_fields.push(
       MultipartFormDataField::raw("image")
@@ -79,7 +83,7 @@ impl FromDataSimple for NewPayload {
       }
     };
 
-    let image_part: &Vec<RawField> = match multipart_form.raw.get("image") {
+    let image_part: &Vec<FileField> = match multipart_form.files.get("image") {
       Some(image_part) => image_part,
       _ => {
         return Failure((
@@ -117,8 +121,42 @@ impl FromDataSimple for NewPayload {
     match image_part.len() {
       
       1 => {
-        image_bytes = image_part[0].raw.clone();
+        //res = data.open().read_to_string(&mut buffer);
+        
+        //let stream = data.open();
+        /*
+        stream.read_to_string(&mut buffer);
+        image_bytes = buffer.into_bytes()
+        */
+        //image_part.
         //print!("{:?}", image_bytes);
+        
+        //image_bytes = image_part[0].raw.clone();
+        /*
+        let stream = File::open(image_part[0].path.as_os_str());
+        match stream {
+          Ok(file) => {
+            image_bytes = file.r(&mut buffer)
+          },
+          Err(e) => {
+            return Failure((
+              Status::BadRequest,
+              MultipartError::new(format!("{:?}", e)),
+            ))
+          }
+        }
+        */
+        //let mut contents = String::new();
+        //stream.read_to_string(&mut contents)?;
+        
+        let mut file = File::open(image_part[0].path.as_os_str()).expect("no file found");
+        let metadata = fs::metadata(image_part[0].path.as_os_str()).expect("unable to read metadata");
+        let mut contents = vec![0; metadata.len() as usize];
+        file.read(&mut contents).expect("buffer overflow");
+
+        buffer = contents
+    
+        
       }
       _ => {
         return Failure((
@@ -131,7 +169,7 @@ impl FromDataSimple for NewPayload {
 
     Success(NewPayload {
       payload: post_obj,
-      image: image_bytes,
+      image: buffer,
     })
 	}
 }
