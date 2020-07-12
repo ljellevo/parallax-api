@@ -5,7 +5,6 @@
 #[macro_use] 
 extern crate rocket;
 extern crate rocket_multipart_form_data;
-extern crate formdata;
 
 
 mod middleware;
@@ -103,6 +102,7 @@ fn upload_image(multipart: Result<NewPayload>) -> String {
   match multipart {
     Ok(m) => {
       print!("Test");
+      print!("{:?}", m.image);
       format!("Hello, {}", m.payload.effect)
     },
     Err(e) => format!("Error: {}", e.reason),
