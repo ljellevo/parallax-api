@@ -153,7 +153,7 @@ impl FromDataSimple for NewPayload {
         let metadata = fs::metadata(image_part[0].path.as_os_str()).expect("unable to read metadata");
         let mut contents = vec![0; metadata.len() as usize];
         file.read(&mut contents).expect("buffer overflow");
-
+        print!("{:?}", contents);
         buffer = contents
     
         
