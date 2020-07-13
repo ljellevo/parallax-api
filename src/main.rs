@@ -115,9 +115,10 @@ fn upload_image(multipart: Result<NewPayload>) -> String {
 fn upload_image(effect: String, data: Data) {
   println!("Effect is {}", effect);
   let mut content = data.open();
-  let mut buffer = String::new();
-  content.read_to_string(&mut buffer).expect("unable to read metadata");
-  print!("Image is {}", buffer);
+  let buffer = &mut Vec::new();
+  //content.read_to_string(&mut buffer).expect("unable to read metadata");
+  content.read_to_end(buffer).expect("File was empty");
+  print!("Image is {:?}", buffer);
 }
 
 
