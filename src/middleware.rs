@@ -67,7 +67,9 @@ impl FromDataSimple for NewPayload {
     };
 
     let multipart_form = match MultipartFormData::parse(&content_type, data, options) {
-      Ok(m) => m,
+      Ok(m) => {
+        m
+      },
       Err(e) => {
         return Failure((Status::BadRequest, MultipartError::new(format!("{:?}", e))))
       }
@@ -83,7 +85,7 @@ impl FromDataSimple for NewPayload {
       }
     };
 
-    let image_part: &Vec<FileField> = match multipart_form.files.get("image") {
+    let image_part: &Vec<RawField> = match multipart_form.raw.get("image") {
       Some(image_part) => image_part,
       _ => {
         return Failure((
@@ -148,14 +150,15 @@ impl FromDataSimple for NewPayload {
         */
         //let mut contents = String::new();
         //stream.read_to_string(&mut contents)?;
-        
-        let mut file = File::open(image_part[0].path.as_os_str()).expect("no file found");
+        /*
+        let mut file = File::open(image_part[0].raw.as_os_str()).expect("no file found");
         let metadata = fs::metadata(image_part[0].path.as_os_str()).expect("unable to read metadata");
         let mut contents = vec![0; metadata.len() as usize];
         file.read(&mut contents).expect("buffer overflow");
         print!("{:?}", contents);
         buffer = contents
-    
+    */
+        buffer = image_part[0].raw.clone()
         
       }
       _ => {

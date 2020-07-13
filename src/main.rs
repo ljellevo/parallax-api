@@ -8,6 +8,8 @@ extern crate rocket_multipart_form_data;
 
 
 mod middleware;
+use crate::middleware::Data;
+use rocket::data::DataStream;
 use crate::middleware::MultipartError;
 use crate::middleware::NewPayload;
 
@@ -96,6 +98,7 @@ struct Output {
 
 //https://blog.krruzic.xyz/rocket-multipart/
 //https://docs.rs/rocket-multipart-form-data/0.9.3/rocket_multipart_form_data/
+/*
 #[post("/api/image", data = "<multipart>")]
 fn upload_image(multipart: Result<NewPayload>) -> String {
   match multipart {
@@ -106,6 +109,11 @@ fn upload_image(multipart: Result<NewPayload>) -> String {
     },
     Err(e) => format!("Error: {}", e.reason),
   }
+}
+*/
+#[post("/api/<effect>", data="<data>")]
+fn upload_image(effect: String, data: Data) {
+  print!("Ya boi was called");
 }
 
 
