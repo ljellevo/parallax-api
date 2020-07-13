@@ -113,12 +113,19 @@ fn upload_image(multipart: Result<NewPayload>) -> String {
 */
 #[post("/api/<effect>", data="<data>")]
 fn upload_image(effect: String, data: Data) {
-  print!("Effect is {}", effect);
+  println!("Effect is {}", effect);
   let mut content = data.open();
   let buffer = &mut Vec::new();
   //content.read_to_string(&mut buffer).expect("unable to read metadata");
-  content.read_to_end(buffer).expect("File was empty");
-  print!("Image is {:?}", buffer);
+  match content.read_to_end(buffer) {
+    Ok(_) =>  {
+      println!("Image was recieved");
+    },
+    Err(_) => {
+      println!("No image was recieved");
+    }
+  }
+  
 }
 
 
