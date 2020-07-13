@@ -8,7 +8,7 @@ extern crate rocket_multipart_form_data;
 
 
 mod middleware;
-use crate::middleware::Data;
+use rocket::Data;
 use rocket::data::DataStream;
 use crate::middleware::MultipartError;
 use crate::middleware::NewPayload;
