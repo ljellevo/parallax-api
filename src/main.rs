@@ -113,7 +113,11 @@ fn upload_image(multipart: Result<NewPayload>) -> String {
 */
 #[post("/api/<effect>", data="<data>")]
 fn upload_image(effect: String, data: Data) {
-  print!("Ya boi was called");
+  println!("Effect is {}", effect);
+  let mut content = data.open();
+  let mut buffer = String::new();
+  content.read_to_string(&mut buffer).expect("unable to read metadata");
+  print!("Image is {}", buffer);
 }
 
 
