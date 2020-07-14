@@ -2,4 +2,4 @@
 
 #curl -X POST "https://parallax-api-dev.herokuapp.com/api/mura_masa" -H  "accept: */*" -H  "Content-Type: multipart/form-data" -F "image=@woman.PNG;type=image/png"
 
-curl -X POST "localhost:8000/api/muramasa" -H  "accept: */*" -H  "Content-Type: multipart/form-data" -F "image=@woman.PNG;type=image/png"
+curl -X POST "localhost:8000/api/muramasa" -H  "accept: */*" -H  "Content-Type: multipart/form-data" -H "x-api-key: valid_api_key" -F "image=@woman.PNG;type=image/png"

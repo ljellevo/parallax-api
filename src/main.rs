@@ -1,28 +1,18 @@
-
-
 #![feature(proc_macro_hygiene, decl_macro)]
 
 #[macro_use] 
 extern crate rocket;
 extern crate rocket_multipart_form_data;
 
-
 mod middleware;
 use rocket::Data;
-use rocket::data::DataStream;
-use crate::middleware::MultipartError;
-use crate::middleware::NewPayload;
-
-type Result<T> = std::result::Result<T, MultipartError>;
-
-
-
+use crate::middleware::ApiKey;
 use std::io::prelude::*;
 use std::fs::File;
 use serde::Serialize;
 use rocket_contrib::json::Json;
 
-
+type Result<T> = std::result::Result<T, ApiKey>;
 
 #[get("/hello")]
 fn hello() -> String {
@@ -91,32 +81,11 @@ fn code_of_conduct() -> Json<Task> {
 }
 
 
-#[derive(Serialize)]
-struct Output {
-	effect: String,
-}
-
-//https://blog.krruzic.xyz/rocket-multipart/
-//https://docs.rs/rocket-multipart-form-data/0.9.3/rocket_multipart_form_data/
-/*
-#[post("/api/image", data = "<multipart>")]
-fn upload_image(multipart: Result<NewPayload>) -> String {
-  match multipart {
-    Ok(m) => {
-      print!("Test");
-      print!("{:?}", m.image);
-      format!("Hello, {}", m.payload.effect)
-    },
-    Err(e) => format!("Error: {}", e.reason),
-  }
-}
-*/
 #[post("/api/<effect>", data="<data>")]
-fn upload_image(effect: String, data: Data) {
+fn upload_image(effect: String, data: Data, key: ApiKey) {
   println!("Effect is {}", effect);
   let mut content = data.open();
   let buffer = &mut Vec::new();
-  //content.read_to_string(&mut buffer).expect("unable to read metadata");
   match content.read_to_end(buffer) {
     Ok(_) =>  {
       println!("Image was recieved");
@@ -125,7 +94,6 @@ fn upload_image(effect: String, data: Data) {
       println!("No image was recieved");
     }
   }
-  
 }
 
 
