@@ -5,7 +5,8 @@ extern crate rocket;
 extern crate rocket_multipart_form_data;
 
 mod middleware;
-use rocket::Data;
+use rocket::Outcome;
+use rocket::{http::{Status, RawStr}, Data};
 use crate::middleware::ApiKey;
 use std::io::prelude::*;
 use std::fs::File;
@@ -76,9 +77,14 @@ fn code_of_conduct() -> Json<Task> {
 }
 
 
-#[post("/api/<effect>", data="<data>")]
-fn upload_image(effect: String, data: Data, key: ApiKey) {
+#[post("/api/<effect>?<x>&<y>", data="<data>")]
+fn upload_image(effect: String, x: &RawStr, y: &RawStr, data: Data, key: ApiKey) {
   println!("Effect is {}", effect);
+  let x =  x.url_decode().expect("Unknown");
+  let y = y.url_decode().expect("Unknown");
+  println!("Focus x coordinate is {}", x);
+  println!("Focusy coordinate is {}", y);
+
   let mut content = data.open();
   let buffer = &mut Vec::new();
   match content.read_to_end(buffer) {
