@@ -14,11 +14,6 @@ use rocket_contrib::json::Json;
 
 type Result<T> = std::result::Result<T, ApiKey>;
 
-#[get("/hello")]
-fn hello() -> String {
-	format!("Hello")
-}
-
 #[derive(Serialize)]
 struct Task { 
 	data: String
@@ -99,7 +94,6 @@ fn upload_image(effect: String, data: Data, key: ApiKey) {
 
 fn main() {
 	rocket::ignite().mount("/", routes![
-		hello, 
 		upcoming_features,
 		release_notes,
 		how_it_works,
