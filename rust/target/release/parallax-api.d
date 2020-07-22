@@ -1,0 +1,1 @@
+/Users/ludvigellevold/dev/Privat/parallax/parallax-api/target/release/parallax-api: /Users/ludvigellevold/dev/Privat/parallax/parallax-api/src/main.rs /Users/ludvigellevold/dev/Privat/parallax/parallax-api/src/middleware.rs

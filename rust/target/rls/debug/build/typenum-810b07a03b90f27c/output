@@ -1,0 +1,2 @@
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/ludvigellevold/dev/Privat/parallax/parallax-api/target/rls/debug/build/typenum-810b07a03b90f27c/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/ludvigellevold/dev/Privat/parallax/parallax-api/target/rls/debug/build/typenum-810b07a03b90f27c/out/op.rs
