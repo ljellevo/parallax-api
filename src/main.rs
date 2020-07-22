@@ -83,7 +83,7 @@ fn upload_image(effect: String, x: &RawStr, y: &RawStr, data: Data, key: ApiKey)
   let x =  x.url_decode().expect("Unknown");
   let y = y.url_decode().expect("Unknown");
   println!("Focus x coordinate is {}", x);
-  println!("Focusy coordinate is {}", y);
+  println!("Focus y coordinate is {}", y);
 
   let mut content = data.open();
   let buffer = &mut Vec::new();
